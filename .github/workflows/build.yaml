@@ -1,0 +1,76 @@
+name: Build and Publish
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  build:
+    name: Build and Create release with uploaded binary build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '1.23'
+
+      - name: Build
+        run: |
+          go install github.com/lassejlv/action@latest
+          action --all
+
+      - name: Upload Release Asset (Linux x64)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{github.event.release.upload_url }}
+          asset_path: ./build/tailwindcssingo-linux-x64
+          asset_name: tailwindcssingo-linux-x64
+          asset_content_type: application/octet-stream
+
+      - name: Upload Release Asset (Linux ARM64)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./build/tailwindcssingo-linux-arm64
+          asset_name: tailwindcssingo-linux-arm64
+          asset_content_type: application/octet-stream
+
+      - name: Upload Release Asset (Mac x64)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{github.event.release.upload_url }}
+          asset_path: ./build/tailwindcssingo-mac-x64
+          asset_name: tailwindcssingo-mac-x64
+          asset_content_type: application/octet-stream
+
+      - name: Upload Release Asset (Mac ARM64)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./build/tailwindcssingo-mac-arm64
+          asset_name: tailwindcssingo-mac-arm64
+          asset_content_type: application/octet-stream
+
+      - name: Upload Release Asset (Windows x64)
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./build/tailwindcssingo-win-x64.exe
+          asset_name: tailwindcssingo-win-x64.exe
+          asset_content_type: application/octet-stream

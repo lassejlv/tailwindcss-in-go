@@ -1,0 +1,6 @@
+# Build commands, will be used with github actions
+build_win-x64 = GOOS=windows GOARCH=amd64 go build -o build/tailwindcssingo-win-x64.exe ## A comment here
+build_linux-x64 = GOOS=linux GOARCH=amd64 go build -o build/tailwindcssingo-linux-x64
+build_linux-arm64 = GOOS=linux GOARCH=arm64 go build -o build/tailwindcssingo-linux-arm64
+build_mac-x64 = GOOS=darwin GOARCH=amd64 go build -o build/tailwindcssingo-mac-x64
+build_mac-arm64 = GOOS=darwin GOARCH=arm64 go build -o build/tailwindcssingo-mac-arm64
