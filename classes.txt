@@ -1,0 +1,4 @@
+text-3xl
+font-bold
+underline
+text-yellow-500

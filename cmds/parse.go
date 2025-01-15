@@ -1,9 +1,11 @@
 package cmds
 
-import "fmt"
+import (
+	"github.com/lassejlv/tailwindcss-in-go/utils"
+)
 
 func ParseCommand(args []string) {
-	fmt.Println("Hello from parse command!")
+	utils.Parser(utils.GetConfig())
 }
 
 func init() {
